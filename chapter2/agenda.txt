@@ -14,8 +14,8 @@ Chapter 2 Summary
 		1. [1..9]
 		2. Higher is evaluated first
 		3. :info to find precedence
-	d) Associativity
-		1. Given the same operator which executes first
+	d) Associativity/fixity
+		1. Given operators of the same precedence how are they grouped in the absence of parentheses?
 		2. Left vs Right (subtract, cons)
 		3. :info is your friend
 	
