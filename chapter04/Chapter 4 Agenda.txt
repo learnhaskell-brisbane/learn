@@ -1,0 +1,164 @@
+Chapter 4 Agenda
+13 Dec 11
+
+Chapter 4 Summary
+-----------------
+
+Goal for chapter:
+  - Syntax which makes Haskell readable and sensible
+    - deconstruct values
+    - avoid big if / else chains
+    - store intermediate computations for reuse
+
+1) Pattern Matching
+	a) Separate function bodies can be defined for different patterns
+	b) Can pattern-match on any data type
+	c) Patterns are processed from the top, down until a match is found
+	d) Similar to Switch statements in Java
+	
+		1. Although can be applied to all data types, unlike Java
+		
+	e) When the name of the pattern starts with a lower case letter, it acts as a catchall pattern
+	
+		1. Catchalls always match the supplied value
+		2. Catchall value can be referenced by its name
+	f) Can be used in place of if / else statements, but more readable function
+	g) Order of the patterns is important within the function definition
+	
+		1.  Putting a catchall as the first pattern means every value will match the first pattern
+		
+	h) Introduced recursion
+	
+		1. A recursion function calls itself within its own definition
+		2. Used a pattern to define a recursive function to implement a factorial function
+		
+		
+		factorial :: Int -> Int
+		factorial 0 = 1
+		factorial n = n * factorial (n - 1)		
+	
+	g) Functions using pattern matching can fail if input doesn't have a matching pattern
+	
+		1. Functions using pattern matching should always have a catchall pattern to handle this
+	
+	h) Tuples are supported in patterns
+	
+		1. Gave an example of how to use patterns to define your own "third" method to get the third member of a triple
+		
+		first :: (a, b, c) -> a
+		first (x, _, _) = x
+		second :: (a, b, c) -> b
+		second (_, y, _) = y
+		third :: (a, b, c) -> c
+		third (_, _, z) = z		
+		
+		2. Example of the underscore value ('_'), which represents a generic value which is irrelevant for the function's implementation
+		
+	i) Pattern matching can be used in list comprehensions
+	
+		1. if the pattern match fails, the list comprehension moves to the next item.  It does not fail
+		
+			a. the item which failed the pattern won't be in the result
+			
+		2. the pattern x:xs is a common pattern used by Haskell developers to get the first item from a list
+		
+			a. it will only match a pattern if the input is a list with at least one element in it
+			b. empty lists as input will not match the pattern
+			
+		3. Starting to see multiple ways to express the same thing (yay!).
+		
+		(x:[])  is the same as [x]
+		(x:y:[]) is the same as [x,y]
+		
+		4. If you want to bind to multiple variables, the pattern must be in parenthesis (as above)
+		5. The ++ operator cannot be used in pattern matching against lists
+		
+	
+	j) Introduced the error function
+	
+		1. a function which takes a string and generates a runtime error using that string
+		2. it crashes the program
+		
+	k) as-pattern
+	
+		1. Allows you to break up an item according to a pattern, while keeping a reference to the original item
+		2. Identified by the @ symbol
+		3. Seems to only make sense for use in catchall patterns.
+	
+2) Guards
+
+	a) Guards are used to check if some property of values passed to a function are true or false
+	
+		1. A lot like if/else statements
+		2. More readable with several conditions
+		3. Work well with patterns
+	
+	b) Defined by a pipe character, followed by a Boolean expression, followed by the function body to be used when expression is True
+	c) If expression evaluates to False, the next Guard is checked
+	d) Guards must be indented by at least one space
+	e) The last guard is an "otherwise" statement
+	
+		1. otherwise statements catch everything
+	
+3) where
+
+	a) Used to store the results of intermediate computations
+	b) Defined after the guards
+	c) Used to define one or more variables or functions
+	d) Names defined in the where binding are visible across all the guards
+	e) All the variable names need to be aligned on the same column
+	
+		1. If not, Haskell doesn't know they're part of the same where clause
+	
+	f) Visible only to the function which defines them
+	g) Not shared across function bodies for different patterns	
+	h) It is possible to do pattern matching in where bindings
+	i) It is possible to define functions in where bindings
+	j) Where bindings are visible across all guards
+
+4) let
+	a) let statements are similar to where clauses
+	b) Can bind to variables anywhere
+	c) Are expressions themselves
+	d) Values do not span guards
+	e) Let expressions are expressions, while where bindings are not expressions
+	f) Locally-scoped functions can be defined in let expressions
+	g) Multiple expressions, delimited by commas, can be defined in a let expression
+	h) let expressions can use pattern matching, or list comprehensions
+	i) let is used in ghci to define expressions that will be visible throughout the entire session
+	
+		1. No "in" part of the statement is required
+	
+5) case
+
+	a) Similar to pattern matching, in that different blocks of code can be executed based on specific values of a particular variable
+	b) Pattern matching is restricted to function parameters when defining functions
+	c) Case expressions can be used anywhere
+	d) Runtime errors are thrown is no suitable pattern can be found
+	e) In fact, pattern matching is the same as using case expressions
+	
+
+Exercises:
+
+i) Define a recursive function mult that takes two positive integers a and b and returns a * b, but only uses addition.
+
+ii) Rewrite the following function using let statements
+
+roots a b c =
+    ((-b + sqrt(b*b - 4*a*c)) / (2*a),
+     (-b - sqrt(b*b - 4*a*c)) / (2*a))
+     
+iii) Using Guards, define a function named sign that takes a single numeric parameter.
+The function will return 1 if the parameter is positive, -1 if the parameter is negative or 0 otherwise.
+
+iv) Euler Problem 1:
+If we list all the natural numbers below 10 that are multiples of 3 or 5, we get 3, 5, 6 and 9. 
+The sum of these multiples is 23.
+Find the sum of all the multiples of 3 or 5 below 1000.
+
+Solve Euler Problem 1 using each of the following language constructs:
+    a) Pattern Matching
+    b) Guards
+    c) Where
+    d) Let
+    e) Case
