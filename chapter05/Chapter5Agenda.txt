@@ -97,7 +97,7 @@ Make sure it is tail recursive (the LYAH chapter doesn't include any information
 That is, log2 computes the exponent of the largest power of 2 which is less than or equal to its argument.
 For example, log2 16 = 4, log2 11 = 3, and log2 1 = 0.
 
-3) Write a recursive function to solve the classic Towers of Hanoi problem.
+3) Write a recursive function to solve the classic Towers of Hanoi problem: http://en.wikipedia.org/wiki/Tower_of_Hanoi.
 Call it hanoi n, where n is the number of rings you need to move from the first post to the third post in the puzzle.
 
 Challenge) Imagine a fourth post is added to the Towers of Hanoi puzzle.
