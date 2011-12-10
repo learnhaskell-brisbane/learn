@@ -91,7 +91,7 @@ Exercises:
 1) The double factorial of a number n is the product of every other number from 1 (or 2) up to n.
 For example, the double factorial of 8 is: 8 × 6 × 4 × 2 = 384, and the double factorial of 7 is: 7 × 5 × 3 × 1 = 105.
 Define a doublefactorial function in Haskell.
-Make sure it is tail recursive (the LYAH chapter doesn't include any information about tail recusion, but you can read about it here).
+Make sure it is tail recursive (the LYAH chapter doesn't include any information about tail recusion, but you can read about it here: http://www.haskell.org/haskellwiki/Tail_recursion).
 
 2) Implement the function log2, which computes the integer log (base2) of its argument.
 That is, log2 computes the exponent of the largest power of 2 which is less than or equal to its argument.
