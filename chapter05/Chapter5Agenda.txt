@@ -1,0 +1,105 @@
+Chapter 5 Agenda
+20 Dec 11
+
+Chapter 5 Summary
+-----------------
+
+Goal for chapter:
+  - Discover why recursion is important in Haskell
+  - Understand how recursive thinking can result in concise, elegant solutions
+
+1) Definition of recursion
+	a) A way of defining functions in which the function is applied inside its own definition
+	b) Generally has an edge condition that is defined non-recursively, often the empty list for functions that take a list
+	c) Important in Haskell because the language has no while or for loops, only declarations of what something is, 
+	which may need to be calculated recursively
+	
+2) Maximum function example
+
+	maximum' :: (Ord a) => [a] -> a  
+	maximum' [] = error "maximum of empty list"  
+	maximum' [x] = x  
+	maximum' (x:xs) = max x (maximum' xs)  
+	
+	a) Takes a list of things that can be ordered and returns the biggest
+	b) Edge condition is the maximum of a singleton list: the only element in it
+	c) Maximim of longer list is the head, if it is bigger than the maximum of the tail
+	d) Pattern matching provides an elegant way of implementing this logic
+	
+3) More recursive examples
+	a) Replicate: uses guards instead of patterns as testing for boolean condition
+	
+	replicate' :: (Num i, Ord i) => i -> a -> [a]  
+	replicate' n x  
+		| n <= 0    = []  
+		| otherwise = x:replicate' (n-1) x  
+	
+	b) Take: uses guard without an otherwise part so matching can fall through to next pattern
+	
+	take' :: (Num i, Ord i) => i -> [a] -> [a]  
+	take' n _  
+		| n <= 0   = []  
+	take' _ []     = []  
+	take' n (x:xs) = x : take' (n-1) xs  
+
+	c) Reverse: edge condition is the empty list
+	
+	reverse' :: [a] -> [a]  
+	reverse' [] = []  
+	reverse' (x:xs) = reverse' xs ++ [x]  
+	
+	d) Repeat: recursion definitions don't have to have an edge condition in Haskell because it supports infinite lists
+	
+	repeat' :: a -> [a]  
+	repeat' x = x:repeat' x  
+
+	e) Zip: takes two list parameters, so there are two edge conditions
+	
+	zip' :: [a] -> [b] -> [(a,b)]  
+	zip' _ [] = []  
+	zip' [] _ = []  
+	zip' (x:xs) (y:ys) = (x,y):zip' xs ys  
+	
+	f) Elem
+	
+	elem' :: (Eq a) => a -> [a] -> Bool  
+	elem' a [] = False  
+	elem' a (x:xs)  
+		| a == x    = True  
+		| otherwise = a `elem'` xs   
+		
+4) Quicksort
+	a) Poster child for Haskell as takes up many more lines of code in imperative languages
+	b) Type signature: quicksort :: (Ord a) => [a] -> [a]
+	c) The edge condition is the empty list and the head of the list is used as the pivot point
+	d) Requires two recursive calls, one to sort the values greater than the head of the list and one to sort those less than
+	
+	quicksort :: (Ord a) => [a] -> [a]  
+	quicksort [] = []  
+	quicksort (x:xs) =   
+		let smallerSorted = quicksort [a | a <- xs, a <= x]  
+			biggerSorted = quicksort [a | a <- xs, a > x]  
+		in  smallerSorted ++ [x] ++ biggerSorted 
+		
+5) Pattern of recursion
+	a) Basic formula to define an edge case and then a function that does something between some element and the function applied to the rest
+	b) Edge case is usually some scenario when a recursive application doesn't make sense
+	c) With numbers, often the edge case value turns out to be an identity
+	
+Exercises:
+
+1) The double factorial of a number n is the product of every other number from 1 (or 2) up to n.
+For example, the double factorial of 8 is: 8 × 6 × 4 × 2 = 384, and the double factorial of 7 is: 7 × 5 × 3 × 1 = 105.
+Define a doublefactorial function in Haskell.
+Make sure it is tail recursive (the LYAH chapter doesn't include any information about tail recusion, but you can read about it here).
+
+2) Implement the function log2, which computes the integer log (base2) of its argument.
+That is, log2 computes the exponent of the largest power of 2 which is less than or equal to its argument.
+For example, log2 16 = 4, log2 11 = 3, and log2 1 = 0.
+
+3) Write a recursive function to solve the classic Towers of Hanoi problem.
+Call it hanoi n, where n is the number of rings you need to move from the first post to the third post in the puzzle.
+
+Challenge) Imagine a fourth post is added to the Towers of Hanoi puzzle.
+Can you think of a strategy which makes use of the fourth post?
+Define a Haskell function hanoi' to compute the number of moves required to solve the puzzle now.
