@@ -1,0 +1,21 @@
+Curried functions
+=================
+
+Some higher-orderism is in order
+================================
+
+Maps and filters
+================
+
+Lambdas
+=======
+
+Only folds and horses
+=====================
+
+Function application with $
+===========================
+
+Function composition
+====================
+
