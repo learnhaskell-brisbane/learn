@@ -1,11 +1,57 @@
+Page 59 in PDF doc.
+
+A function that takes a function as parameters or returns a function is a higher order function. Higher order functions are really the essence of functional programming
+
 Curried functions
 =================
+
+Every function takes ONLY 1 PARAMETER
+Functions that take more than one do so using a clever trick - Curried Functions
+Named after Haskell Curry
+max 4 5 is really just (max 4) 5
+Use t: to see for yourself
+	eg. max :: (Ord a) => a -> a -> a 
+	    is really just
+	    max :: (Ord a) => a -> (a -> a)
+Partially applied functions are returned when we call a function with too few parameters.
+	- They take as many parameters as we left out 
+Think of functions as tiny factories 
+	- take materials and product something
+	- that something can be another smaller factory
+	- Google "How I taught my kids functional programming" for a funny Dr Seuss/Sneechers example
+
+SECTIONS
+
+Partial application for infix functions
+To section an infix function surround with parentheses and supply parameter on one side only
+What out for negative
+	- (-4) is not sectioned - it's negative 4
+	- Use "subtract" function instead if you want to do this
+
+PRINTING FUNCTIONS
+
+You can't print partially applied function as they aren't instances of the Show type class. Kind of obvious really! 
 
 Some higher-orderism is in order
 ================================
 
-Maps and filters
-================
+zipWith
+flip
+
+The Functional Programmer’s Toolbox
+===================================
+
+The map Function
+________________
+
+The filter Function
+___________________
+
+More Examples of map and filter
+_______________________________
+
+Mapping Functions with Multiple Parameters
+__________________________________________
 
 Lambdas
 =======
@@ -13,9 +59,35 @@ Lambdas
 Only folds and horses
 =====================
 
+I Fold You So
+_____________
+
+Left Folds with foldl
+_____________________
+
+Right Folds with foldr
+______________________
+
+The foldl and foldr1 Functions
+______________________________
+
+Some Fold Examples
+__________________
+
+Another Way to Look at Folds
+____________________________
+
+Folding Infinite Lists
+______________________
+
+Scans
+_____
+
 Function application with $
 ===========================
 
 Function composition
 ====================
 
+Function Composition with Multiple Parameters
+Point-Free Style
