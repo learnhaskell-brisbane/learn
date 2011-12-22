@@ -35,23 +35,25 @@ You can't print partially applied function as they aren't instances of the Show 
 Some higher-orderism is in order
 ================================
 
-zipWith
-flip
+applyTwice :: (a -> a) -> a -> a
+	- Need parenthesis as -> is right associative
+
+
+ZIPWITH
+
+FLIP
 
 The Functional Programmer’s Toolbox
 ===================================
 
-The map Function
-________________
+MAP
 
-The filter Function
-___________________
+FILTER
 
-More Examples of map and filter
-_______________________________
+MORE EXAMPLES OF MAP AND FILTER
 
-Mapping Functions with Multiple Parameters
-__________________________________________
+MAPPING FUNCTIONS WITH MULTIPLE PARAMETERS
+
 
 Lambdas
 =======
