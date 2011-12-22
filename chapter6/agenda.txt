@@ -37,9 +37,11 @@ Some higher-orderism is in order
 
 applyTwice :: (a -> a) -> a -> a
 	- Need parenthesis as -> is right associative
-
+We now know that multiple parameters is a trick - but book will still call it that.
 
 ZIPWITH
+
+Note - lists don't have to be of the same type, the function just has to handle those types that's all.... nice.
 
 FLIP
 
@@ -48,9 +50,24 @@ The Functional Programmer’s Toolbox
 
 MAP
 
+Should be quite familiar - version in groovy, ruby, python etc.
+Applies function to every element in list
+	map :: (a -> b) -> [a] -> [b]
+Can be achieved with list comprehension but map function makes for better readability (especially when nested)
+
 FILTER
 
+Similar to map but takes a predicate (a function that tells if something is true or false) and returns members of list that satisy it
+	filter :: (a -> Bool) -> [a] -> [a]
+Same as map - can be written as list comprehension. Which to pick? - all about readability
+Filter in quicksort example 
+
 MORE EXAMPLES OF MAP AND FILTER
+
+Use filter with head to extract max 
+	lazyness means it doesn't have to filter the whole list so not a bad solution.
+Collatz chain example
+	
 
 MAPPING FUNCTIONS WITH MULTIPLE PARAMETERS
 
