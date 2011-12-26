@@ -68,39 +68,71 @@ Use filter with head to extract max
 	lazyness means it doesn't have to filter the whole list so not a bad solution.
 Collatz chain example
 	
-
 MAPPING FUNCTIONS WITH MULTIPLE PARAMETERS
 
+note: !! is for accessing list items (can't believe I didn't know that!)
 
 Lambdas
 =======
 
+Lambdas are pretty straightforward - they are just anonymous, use-once functions. 
+Usually create them to pass to a higher-order function.
+Write a "\" to start a lambda, then func params, then -> then body
+Usually surround in parens
+eg: (\xs -> length xs > 15)
+map (+3) [1,6,3,2] == map (\x -> x + 3) [1,6,3,2]
+Can take any number of params
+Can pattern match, but only one pattern
+Can define functions as lambdas - sometimes they are more readable this way (eg. flip)
+	- explicit partial application
+
 Only folds and horses
 =====================
 
-I Fold You So
-_____________
+I FOLD YOU SO
 
-Left Folds with foldl
-_____________________
+Folds reduce a data structure to a single value
+Takes 3 params
+	- Binary Function (2 params)
+	- Starting Value/Accumulator
+	- Data Structure
+Left or Right
 
-Right Folds with foldr
-______________________
+LEFT FOLDS WITH FOLDL
 
-The foldl and foldr1 Functions
-______________________________
+Folds up from the left side
+sum' xs = foldl (\acc x -> acc + x) 0 xs
+using currying:
+sum' xs = foldl (+) 0 xs (book used point-free but we haven't got to that yet!)
 
-Some Fold Examples
-__________________
+RIGHT FOLDS WITH FOLDR
 
-Another Way to Look at Folds
-____________________________
+Same as foldl but works from the right
+Can implement map with foldr:
+	map' f xs = foldr (\x acc -> f x : acc) [] xs
+Works much better with a foldr as you can use : instead of ++ (which is slow)
+Works on infinite lists - foldl doesn't.
+Accumulators can be anything!
 
-Folding Infinite Lists
-______________________
 
-Scans
-_____
+THE FOLDL1 AND FOLDR1 FUNCTIONS (note typo in title in the book)
+
+Same as regular fold except don't need to seed the accumulator (equal to starting element)
+maximum x = foldl1 max x
+Be careful as they cause runtime exceptions on empty lists (foldr and foldl just fine though)
+
+SOME FOLD EXAMPLES
+
+reverse
+product
+filter
+last
+
+ANOTHER WAY TO LOOK AT FOLDS
+
+FOLDING INFINITE LISTS
+
+SCANS
 
 Function application with $
 ===========================
