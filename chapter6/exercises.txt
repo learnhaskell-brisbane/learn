@@ -1,0 +1,18 @@
+
+
+
+Rewrite the standard Prelude libarary function "<insert function name here>" using $
+Rewrite the standard Prelude libarary function "<insert function name here>" using lambdas
+Rewrite the standard Prelude libarary function "<insert function name here>" using fold/scan
+Rewrite the standard Prelude libarary function "<insert function name here>" using function composition
+Rewrite the standard Prelude libarary function "<insert function name here>" using currying
+When should you use foldr? 
+When should you use foldl? 
+
+sum = foldl (+) 0
+length = foldl (const . succ) 0
+append = flip (foldr (:))
+flatten = foldr1 append
+flatmap f = flatten . map f
+reverse = foldl1 (flip (:)) []
+
