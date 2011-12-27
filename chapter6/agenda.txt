@@ -124,21 +124,60 @@ Be careful as they cause runtime exceptions on empty lists (foldr and foldl just
 SOME FOLD EXAMPLES
 
 reverse
+	reverse' = foldl (\acc x -> x : acc) []
+	reverse' = foldl (flip (:)) []
 product
+	product' = foldl (*) 1
 filter
+	filter' p = foldr (\x acc -> if p x then x : acc else acc) []
 last
+	last' = foldl1 (\_ x -> x)
 
 ANOTHER WAY TO LOOK AT FOLDS
 
+You can write them out as successive function applications
+
 FOLDING INFINITE LISTS
 
+Above helps to understand foldr and infinite lists
+
 SCANS
+
+Same as folds but report their interim values of accumulator as a list.	
+"1" versions work just like folds
+scanl - final result in last element
+scanr - final result in head
+Good for monitoring progress of fold
 
 Function application with $
 ===========================
 
+$ has lowest precendence of all
+Makes things right associative
+Can imagine $ as almost being the equivalent of writing an opening parenthesis and then writing a closing parenthesis on the far right side of the expression.
+
 Function composition
 ====================
 
-Function Composition with Multiple Parameters
-Point-Free Style
+Calling one function with a value then calling another function passing the result as the param
+Use . function
+(.) :: (b -> c) -> (a -> b) -> a -> c
+Kind of like a Unix pipe, but works from the right to left
+good alternative to lambdas
+Makes for tidier code
+
+FUNCTION COMPOSITION WITH MULTIPLE PARAMETERS
+
+Must partially apply them so that so each function takes just 1 param
+Note: (sum . replicate 5) max 6.7 8.9 doesn't compile. Had to do (sum . replicate 5) (max 6.7 8.9)
+If expression ends with n ')' chances are you are going to end up with n-1 composition operators
+
+POINT-FREE STYLE
+
+Has been used earlier in the book, but not introduced until now
+Makes code shorter (but is it more readable??) by dropping params on each side (kind of like reducing equations)
+Can't drop them if the param is in parentheses
+	- rewrite the expression using function composition and you sometimes can though
+	(probably the reason this is at the end of the chapter)
+Complex functions - can be less readable. Better style is to use let or split the problem up.
+
