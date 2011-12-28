@@ -26,7 +26,17 @@ that converts a decimal number into a natural number
 
 (foldl, lambdas)
 
-...
-scans 
-converting complex functions so that they can be made point-free (function application, composition and point-free) 
-Express snd using curry or uncurry and other basic Prelude functions and without lambdas
+5. Rewrite this simple fibonacci function using scans
+
+fib 0 = 0
+fib 1 = 1
+fib n = fib (n-1) + fib (n-2)
+
+(hint: infinite lists and recursion)
+
+6. Convert the following to point free style:
+
+	f x = 5 + 8/x
+
+7. Express fst & snd using curry or uncurry and other Prelude functions (don't use lambdas)
+

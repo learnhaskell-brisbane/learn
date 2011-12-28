@@ -1,5 +1,3 @@
-Page 59 in PDF doc.
-
 A function that takes a function as parameters or returns a function is a higher order function. Higher order functions are really the essence of functional programming
 
 Curried functions
@@ -19,6 +17,7 @@ Think of functions as tiny factories
 	- take materials and product something
 	- that something can be another smaller factory
 	- Google "How I taught my kids functional programming" for a funny Dr Seuss/Sneechers example
+		- http://jackcoughonsoftware.blogspot.com/2009/05/teaching-functional-programming-to-kids.html
 
 SECTIONS
 
@@ -180,4 +179,5 @@ Can't drop them if the param is in parentheses
 	- rewrite the expression using function composition and you sometimes can though
 	(probably the reason this is at the end of the chapter)
 Complex functions - can be less readable. Better style is to use let or split the problem up.
+Check out "pointfree" (cabal install pointfree) - shows you how to write expression in point free syntax	
 
