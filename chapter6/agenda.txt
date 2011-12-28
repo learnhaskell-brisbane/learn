@@ -179,4 +179,5 @@ Can't drop them if the param is in parentheses
 	- rewrite the expression using function composition and you sometimes can though
 	(probably the reason this is at the end of the chapter)
 Complex functions - can be less readable. Better style is to use let or split the problem up.
+Check out "pointfree" (cabal install pointfree) - shows you how to write expression in point free syntax	
 
