@@ -103,3 +103,4 @@ Call it hanoi n, where n is the number of rings you need to move from the first 
 Challenge) Imagine a fourth post is added to the Towers of Hanoi puzzle.
 Can you think of a strategy which makes use of the fourth post?
 Define a Haskell function hanoi' to compute the number of moves required to solve the puzzle now.
+	
