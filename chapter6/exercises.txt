@@ -1,18 +1,32 @@
+1. Without looking in prelude define the higher-order library function "curry" that converts a function on pairs into a curried function, and, conversely, the function uncurry that converts curried function with two arguments into a function on pairs.
 
+When would you use these functions?
 
+(currying)
 
-Rewrite the standard Prelude libarary function "<insert function name here>" using $
-Rewrite the standard Prelude libarary function "<insert function name here>" using lambdas
-Rewrite the standard Prelude libarary function "<insert function name here>" using fold/scan
-Rewrite the standard Prelude libarary function "<insert function name here>" using function composition
-Rewrite the standard Prelude libarary function "<insert function name here>" using currying
-When should you use foldr? 
-When should you use foldl? 
+2. Rewrite [f x | x <- xs, p x] using map and filter
 
-sum = foldl (+) 0
-length = foldl (const . succ) 0
-append = flip (foldr (:))
-flatten = foldr1 append
-flatmap f = flatten . map f
-reverse = foldl1 (flip (:)) []
+(map, filter)
 
+3. Implement the following functions using what you have learnt in the chapter. Try to make them as short and readable as possible.
+
+length' :: [b] -> Integer
+append' :: [a] -> [a] -> [a]
+flatten' :: [[a]] -> [a]
+flatmap' :: (a -> [b]) -> [a] -> [b]
+
+(everything!)
+
+4. Using folds, define a function
+
+dec2nat :: [Int ] -> Int 
+
+that converts a decimal number into a natural number
+	eg. dec2nat [2, 3, 4, 5] = 2345
+
+(foldl, lambdas)
+
+...
+scans 
+converting complex functions so that they can be made point-free (function application, composition and point-free) 
+Express snd using curry or uncurry and other basic Prelude functions and without lambdas
