@@ -1,0 +1,35 @@
+Question 1
+==========
+Hide foldr and foldl.
+
+Question 2
+==========
+What is the standard directory structure for a Haskell project?
+
+Question 3
+==========
+Run the function 'l16' in week7.hs to print out:
+
+[1]:selectf (borrower)
+---------------------
+|cstmr-name|loan-num|
+---------------------
+|Adams     |L-16    |
+---------------------
+
+To do this you'll need to complete the following module (RelationalAlgrebra.hs) by completing the export specification which includes a data type constructor and any methods.
+
+As well as:
+* Any imports,
+* Types:
+ * Records are Arrays of Record
+ * Record are Arrays of Value
+ * Schema are Arrays of Fields
+ * Value, Field and Name are Strings 
+* The datatype Table deriving Eq and Show and made of a Name, a Schema and Records.
+* Any methods required by week7.hs.
+
+Super Mega Awesome Bonus Questions
+==================================
+Find the original Haskell code where this was taken from and finish off the other relational operations. 
+
