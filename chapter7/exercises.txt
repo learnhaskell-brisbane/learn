@@ -1,0 +1,48 @@
+A module is a file of functions, types and type classes.  A program is a collection of modules.  A module exports functions and types.
+
+import ModuleName
+
+Search for Haskell libraries with Hoogle http://www.haskell.org/hoogle/
+
+:m + Data.List Data.Map Data.Set - to add the modules List, Map, Set.
+
+Question 1
+
+Hide foldr and foldl.
+
+Answer 1
+
+import Prelude hiding (foldr, foldl)
+...
+
+Question 2
+
+What is the standard directory structure for a Haskell project?
+
+Answer 2
+
+Standard Directory structure for Hasekll project:
+http://www.haskell.org/haskellwiki/Structure_of_a_Haskell_project#Directory_Structure
+
+Question 3
+
+Run the function 'l16' in week7.hs to print out:
+
+[1]:selectf (borrower)
+---------------------
+|cstmr-name|loan-num|
+---------------------
+|Adams     |L-16    |
+---------------------
+
+To do this you'll need to complete the following module (RelationalAlgrebra.hs) by completing the export specification which includes a data type constructor and any methods.
+
+As well as:
+* Any imports,
+* Types:
+ * Records are Arrays of Record
+ * Record are Arrays of Value
+ * Schema are Arrays of Fields
+ * Value, Field and Name are Strings 
+* The datatype Table deriving Eq and Show and made of a Name, a Schema and Records.
+* Any methods required by week7.hs.
