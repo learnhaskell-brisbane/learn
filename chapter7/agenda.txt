@@ -1,0 +1,52 @@
+A module is a file of functions, types and type classes.  A program is a collection of modules.  A module exports functions and types.
+
+How do you import a module in a file or GHCi
+============================================
+File:
+import Data.List
+numUniques :: (Eq a) => [a] -> Int
+numUniques = length . nub
+
+GHCi:
+ghci> :m + Data.List
+
+Examples of using Data.List, Data.Map and Data.Set
+==================================================
+Using external library functions:
+* words, group, sort
+* isPrefixOf
+* any, isIn
+
+Creating a Ceasar Cypher
+========================
+Using functions:
+* ord, decode and encode.
+
+Strict Left Folds
+=================
+We may talk about that in week 6.
+
+seq :: a -> b -> b
+seq is a primitive system function that when applied to x and y will first reduce x then return y. The idea is that y references x so that when y is reduced x will not be a big unreduced chain anymore."
+http://www.haskell.org/haskellwiki/Foldr_Foldl_Foldl'
+
+Introduction to Maybe
+=====================
+* Use Maybe type to return Nothing or Just something.
+
+Association Lists
+=================
+* Defining tabular data.
+
+Maps
+====
+* Introduction to Map module.
+* Defining using Lists.
+* Lookup to find values by keys.
+
+Modules
+=======
+* Basic structure of a Module by defining externally visible functions.
+* Hierarchical modules.
+* Exporting datatypes (http://en.wikibooks.org/wiki/Haskell/Modules)
+
