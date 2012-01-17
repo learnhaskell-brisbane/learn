@@ -1,0 +1,133 @@
+Chapter purpose: Learning how to create custom types and type classes
+
+-- Data types --
+- The data keyword can be used to define new types. Eg: data Bool = False | True
+- Type (eg. Bool) and value constructors (True, False) must be capitalised
+- Types can optionally be added after value constructors. Eg: data Shape = Circle Float Float Float
+- Value constructors are functions that return a value of a data type
+- To allow Haskell to print a type value it must be declared as part of the Show class. To do this we add 'deriving (Show)' at the end of the data declaration
+- The name of the data type is often the same as the name of the value constructor if there's only one but there is no special meaning attached to this. Eg. data Point = Point Float Float deriving (Show)
+- To export data types in a module, just add the types to the list of functions to export, with the value constructors to export, if any, in parentheses or (..) to export all value constructors for a given type.
+Eg. module Shapes
+( Point(..)
+, Shape(..)
+, area
+) where
+- You can choose not to export the value constructors for a data type and thus hide their implementation, only allowing users to create that type through exported functions
+
+-- Record syntax --
+- Offers a way to name the fields in a data type. Automatically creates functions that look up these fields.
+Eg: data Person = Person { firstname :: String
+			  , lastName :: String
+                          , age :: Int } deriving (Show)
+ghci> :t firstName
+firstName :: Person -> String
+- If record syntax is used types can be defined with different syntax with the fields in any order. This creates a nicer representation for Show. eg. ghci> Person {lastName="Smith", firstName="John", age=29}
+- Use record syntax when a constructor has several fields and it may not be obvious which is which
+
+-- Type parameters --
+- Type constructors can take types as parameters to produce new types
+eg. data Maybe a = Nothing | Just a, where Maybe a is a type constructor and 'a' is a type parameter
+- We don't normally pass types as parameters to type constructors explicitly as Haskell has type inference. If we need to do this, it has to be in the type part of Haskell, usually after ::. Eg. Just 3 :: Maybe Int (rather than Num)
+- A type is concrete if it doesn't take any parameters (eg. Bool) or its type parameters are already filled (eg. Maybe Char)
+- Use type parameters when a data type works regardless of the type of the value it holds
+- Never put type constraints into data declarations; this is against Haskell convention as it forces the types to be added to function definitions even if they are not necessary for a given function
+
+-- Derived instances --
+- Derivable type classes include Eq, Ord, Show, Read, Bounded and Enum
+- Haskell can derive the behaviour of our types in different type class contexts if we use the deriving keyword when making our data type
+- When we use == or /= on a data type deriving Eq, for example, Haskell checks if the value constructors match and then if the data is the same for any fields (all field types must also be part of the Eq type class)
+- With Read/Show type classes, Show will allow Haskell to print something as a string with no extra info, but Read requires a type unless Haskell can infer the type eg. read examplePerson :: Person; read examplePerson == person2
+- With types deriving Ord, if two values of the same type were made with different constructors, the value that was defined first is considered smaller, and values using the same constructor are considered equal unless they have fields, in which case the fields are compared. This means, for example, that True is greater than False as its value constructor is defined after False
+- We can apply the derivable type classes to make enumerations, eg: the days of the week
+
+-- Type synonyms --
+- Allow us to give types different names to improve code readability. Eg. type String = [Char]
+- Does not create a new type (despite the use of the word type) but rather a synonym for an existing one
+- Haskell programmers typically use this on Strings when they want to convey more info about what a String actually represents
+- Another common use is to replace a long type that is repeated a lot
+- Type synonyms can be parameterised. Eg. type AssocList k v = [(k,v)]
+- We can specify a type constructor with too few parameters and get back a partially applied type constructor. Eg. type IntMap v = Map Int v to represent a Map from ints to something
+- When we do qualified imports, type constructors also need to be preceded with a module name
+- Type synonyms and types generally can only be used in the type portion of Haskell, which includes data and type declarations and after :: in type declaration or annotations
+- Either example; Either can be used to represent the results of failed computations (as opposed to Maybe, for which we cannot distinguish between different failure reasons) in addition to successful results
+
+-- Recursive data structures --
+- We can create recursive data types where a value of some type contains values of that type
+- Eg. We can make our own list type like so: data List a = Empty | Cons a (List a) deriving (Show, Read, Eq, Ord)
+- We can make our own functions for our list type that work like the : and ++ operators
+- When we define functions as operators we can use a fixity declaration to define how tightly the operator binds and whether it is left or right associative. Eg. infixr 5 :-:
+- We can define constructors to be infix but they must begin with a colon. Eg. data List a = Empty | a :-: (List a) deriving (Show, Read, Eq, Ord)
+- Pattern matching (x :-: xs) works on our list type because pattern matching is actually about matching constructors
+- Binary search tree example definition: data Tree a = EmptyTree | Node a (Tree a) (Tree a) deriving (Show)
+
+-- Type classes 102 --
+- We can make our own type classes (which are sort of like interfaces and define some behaviour) and type instances of them
+- Eq type class defined as: 
+class Eq a where
+(==) :: a -> a -> Bool
+(/=) :: a -> a -> Bool
+x == y = not (x /= y)
+x /= y = not (x == y)
+Where Eq is the type class being defined, and a is the type variable playing the role of type that will soon be an instance of Eq
+- We can make our types instances of type classes by hand (rather than using deriving) using the instance keyword. Eg.
+data TrafficLight = Red | Yellow | Green
+instance Eq TrafficLight where
+	Red == Red = True
+	Green == Green = True
+	Yellow == Yellow = True
+	_ == _ = False
+- We only need to overwrite the == instance declaration as Eq defines /= in terms of ==, so Haskell knows how they are related. This is the minimal complete definition
+- To make a type class a subclass of another type class, we just add a class constraint on a class declaration. Eg: class (Eq a) => Num a where ... etc
+- Class constraints can also be used in instance declarations to express requirements about the contents of some type.
+Eg: instance (Eq m) => Eq (Maybe m) where
+	Just x == Just y = x == y
+	Nothing == Nothing = True
+	_ == _ = False
+- To see what the instances of a type class are type :info YourTypeClass in GHCi
+- Yes-No type class example
+- Id is a standard library function that takes a parameter and returns the same thing
+
+-- The functor type class --
+- The Functor type class is for things that can be mapped over, such as lists
+- Defined as: class Functor f where
+	fmap :: (a -> b) -> f a -> f b
+- For lists, fmap is just map: instance Functor [] where
+				fmap = map
+- Types that can act like a box can be functors, such as List and also Maybe.
+Eg. instance Functor Maybe where
+	fmap f (Just x) = Just (f x)
+	fmap f Nothing = Nothing
+- Tree also falls into this category; we can fmap over a tree
+Eg. instance Functor Tree where
+	fmap f EmptyTree = EmptyTree
+	fmap f (Node x left right) = Node (f x) (fmap f left) (fmap f right)
+
+-- Kinds and some type-foo --
+- Types are labels that values carry so we can reason about the values; kinds are labels for types
+- You can find the kind of a type using :k [type] in GHCi
+- Eg. ghci> :k Int
+Int :: * (* means it is a concrete type ie: takes no parameters)
+ghci> :k Maybe
+Maybe :: * -> * (type constructor takes one concrete type and returns a concrete type)
+- Type constructors are curried just like functions, so they can be partially applied
+Eg. ghci> :k Either String
+Either String :: * -> *
+
+-- Questions --
+
+1. Explain the difference between type constructors and value constructors.
+
+2. Create a Haskell data type to represent currencies. Use record syntax. Include fields for the currency values and names, plus any other fields you like. Make sure you have at least two value constructors (eg. Aussie dollars and GBPs or notes and coins). Derive any relevant type classes (eg. Ord, Eq). Try to include an intermediate data type.
+
+3. Make use of type parameters to create a new data type to represent a currency supply. The currency supply type should take your currency type as a parameter. The type should be able to hold units of multiple currency values (although only one currency type). Make the currency supply type an instance of least two type classes by hand. Add type synonyms to one or both of your data types where appropriate to improve readability.
+
+4. Create a cashDispenser function that takes a currency supply type and an amount to dispense, and returns a new currency supply with the amount withdrawn (optionally also return a second currency supply representing the amount withdrawn (ie: the number of units of each currency required to withdraw it); you could also return this instead of the currency supply with the amount withdrawn – choose your own adventure!). For simplicity, you can choose to only allow amounts to be withdrawn using a single currency (ie. dispenser cannot dispense $50 x 1 and $20 x 1 for $90, and $90 cannot be withdrawn in only $50 or $20, so a currency dispenser with a currency supply containing only these currency values could not dispense $90). Use the Either type to give different failure messages if the amount cannot be withdrawn.
+
+5. Create a currency supply that can only dispense 20 and 50 values of some currency type. Implement a binary search tree through which you can look up the currency supply combination to dispense when particular amounts are requested (ie: the tree node keys will be amounts and the values will be currency supplies). Include common amounts for up to 200 currency units in your tree (ie: 20, 50, 60, 70, 80, 90, 100, 110 ... 200). Create a new cashDispenser function that uses this tree to decide what currency supply combination to withdraw. Make sure some sort of failure still results if an amount cannot be dispensed.
+
+6. Using YesNo for inspiration, write a type class called Valuable that defines one function that returns an Int representing how valuable something is (on some arbitrary scale). Make your currency and currency supply types plus at least one standard Haskell data type instances of this type class. Use :k to check its kind.
+
+7. Make one of your data types an instance of Functor, or explain why you cannot do so.
+
+
