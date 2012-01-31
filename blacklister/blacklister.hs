@@ -16,7 +16,7 @@ Storycard 2
 1. Add a "main" method to blacklister.hs that outputs blacklister to stdout (as lines of CSV).
 2. Run "ghc blacklister"
 3. Run "blacklister > blacklisted.csv"
-4. Compare blacklisted.csv with expected.csv
+4. Compare blacklisted.csv with blacklister_expected.csv
 -}
 
 {-
