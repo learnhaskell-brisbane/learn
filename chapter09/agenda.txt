@@ -1,0 +1,144 @@
+Chapter 9 Summary
+-----------------
+
+Goal for Chapter
+  - Cover the basic for Input and Output actions in Haskell
+  
+
+1) Pure vs Impure
+
+	- In Haskell, functions are not allowed to have side-effects
+		- A function called two times with the same parameters must return the same result
+		- Pure functions cannot change state
+		- Pure functions can be predicted
+	
+	- However, it is hard to report on what's happening if no state can be changed
+	
+	- Pure functions do not have side effects
+	- Impure functions handle the "dirty" work of talking to keyboards and screens
+	
+2) GHC Compiler
+
+	- Up to now, all of our work has been through GHCi
+	
+	- There is a haskell compiler, ghc, which compiles Haskell programs into native executables
+	
+	- I tried this, found the compiler pretty slow.
+	
+	- Also, for the one-line helloworld example, the exe seemed large 
+
+-rwxrwxrwx 1 Ed             None 1029130 2012-02-02 20:58 helloworld.exe
+-rwxrwxrwx 1 Ed             None     484 2012-02-02 20:58 helloworld.hi
+-rwxrwxrwx 1 Administrators None      30 2012-02-02 20:57 helloworld.hs
+-rwxrwxrwx 1 Ed             None    2226 2012-02-02 20:58 helloworld.o
+
+
+3) I/O Action
+
+	- The helloworld example used a function putStrLn.  This is its type
+	
+:t putStrLn
+putStrLn :: String -> IO ()
+	
+	  It is a function which takes a String and returns an I/O action that has a return type of ()
+	  
+	  	- () is an empty tuple, also known as a unit
+
+	- An I/O action is something that, when performed, will carry out an action with a side effect and will also present some result
+		- The I/O action yields this result
+		
+	- An I/O action will be performed when it is named "main" and the program is run
+		- So, technically, only one I/O action is ever run (the one named main)
+		
+4) Glueing multiple I/O actions together
+
+	- In order to perform multiple I/O actions while a program is running, they can be defined using the do statement
+	
+	main = do
+	    putStrLn "Hello, what's your name?"
+	    name <- getLine
+            putStrLn ("Hey " ++ name ++ ", you rock!")	
+            
+          Each step after the do are I/O actions, and they will be performed in the sequence defined
+          By putting them after the do statement, they are all merged into a single I/O action
+          
+        - The type of the "glued" I/O action created by the do is always the type of the last I/O action in the list of steps
+        
+5) Binding I/O action values
+
+	- The syntax name <- getLine is an example of how values from an I/O action are accessed witin a Haskell program
+		- getLine has a type of getLine :: IO String. So it returns an I/O action with a String return type
+	
+	- An I/O action is a box that goes out into the real world, does something, and possibly brings something back when its down
+	- The way to get the data brought back from an I/O action is using the <- construct, called binding
+	- You can only take data out of an  I/O action while you're inside another I/O action
+	
+		- This is how Haskell separates the Impure from the Pure
+	
+	- Every I/O action has a result
+		- Even those which have no result use a unit, or an empty tuple
+		- Why not have I/O Nothing instead of I/O ()?
+		
+	- The last I/O action in a do statement cannot be bound to a value
+		- The do statement automatically extracts the value from the last I/O action and yields it as its own result
+	
+6) Let statements inside I/O actions
+
+	- Let statements are used to bind pure values to names within a do statement
+		- Analogous to <- for I/O actions, but let is for normal values returned by (pure) expressions
+	
+	- Indentation of the I/O actions and let statements within the do statement are important
+	- Showed an example of how main can be called recursively to execute a loop of I/O actions
+
+7) Return	
+
+	- The statement "return" creates an I/O action from a pure value
+		- return "haha" results with a type of IO String 
+		
+	- return doesn't end the block, as in other languages
+	- return is the opposite of <-
+		- <- gets a value out of an IO action
+		- return creates an IO action and puts the value into it
+		
+8) Useful functions
+
+	- putStr
+		- Like putStrLn, but doesn't end with a new line at the end
+	
+	- putChar
+		- Prints the char to the screen
+		
+	- print
+		- takes a value of any type which is an instance of Show, applys show to the value and prints the value to the screen
+		- the same as putStrLn . show
+	
+	- when
+		- function that takes a Boolean and an IO action
+		- if the Boolean is true, the IO action is returned
+		- if the Boolean is false, IO () is returned
+		
+	- sequence
+		- takes a list of IO actions and returns an IO action that performs those actions in order
+		- the result is a list of the results of all the input IO actions
+	
+	- mapM
+		- takes a function and a list
+		- maps the function over the list, then sequences it
+		- mapM_ throws away the result
+		
+ghci> mapM print [1,2,3]
+1
+2
+3
+[(),(),()]
+
+ghci> mapM_ print [1,2,3]
+1
+2
+3
+
+	- forever
+		- takes an IO action, and returns an IO action the repeats the input IO action forever
+		
+	- forM
+		- like mapM, but the parameters are switched around
