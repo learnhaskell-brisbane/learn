@@ -1,3 +1,8 @@
+Javascript repl:
+http://nodejs.org/api/repl.html
+
+Source of Javascript write monad:
 http://blog.jcoglan.com/2011/03/05/translation-from-haskell-to-javascript-of-selected-portions-of-the-best-introduction-to-monads-ive-ever-read/
 
+Source of Javascript map function (and chapter on functional Javascript):
 http://eloquentjavascript.net/contents.html
