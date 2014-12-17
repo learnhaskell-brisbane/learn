@@ -1,0 +1,19 @@
+Notes:
+
+Is there a way to show that Ord requires Eq?
+
+Class inheritance:
+class  (Eq a) => Ord a  where
+   compare              :: a -> a -> Ordering
+   (<), (<=), (>=), (>) :: a -> a -> Bool
+   max, min             :: a -> a -
+http://en.wikibooks.org/wiki/Haskell/Class_declarations
+
+http://en.wikibooks.org/wiki/Haskell/More_on_functions#Infix_versus_Prefix
+
+Fixed point combinator
+http://en.wikipedia.org/wiki/Fixed-point_combinator
+
+How to prevent operations on infinite lists:
+http://www.cs.ru.nl/~bart/PAPERS/JR.pdf
+http://www.bfpg.org/messages/26435032/

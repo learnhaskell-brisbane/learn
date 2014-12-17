@@ -1,0 +1,7 @@
+This is a nice example of how we can successfully use recursion that doesn’t have a base case to make infinite lists—we just have to be sure to chop them off somewhere along the way.
+
+Tail Recursion:
+
+In case you're wondering about stack space, won't all this recursion eventually overflow the stack? The answer is that Haskell supports tail recursion (every decent functional language's compiler does). Tail recursion is the idea that if the last thing a function does is call itself, the interpreter may as well not bother putting things on the stack, and just "jump" to the beginning using the function's new arguments. In this case, though, the factorial function has to call itself with "(n-1)" and then multiply the result by "n".
+
+http://en.wikibooks.org/wiki/Haskell/Preliminaries#Tail_Recursion

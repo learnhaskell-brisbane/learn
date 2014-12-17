@@ -1,0 +1,17 @@
+Multiline continuation for haskell?
+
+Do when we're doing pattern matching with GHCI?
+
+RealFloat vs Floating
+
+Ackermann function - literate programming site:
+http://en.literateprograms.org/Category:Ackermann_function
+
+Pattern Matching is the Dual? of Case
+Where is the Dual of Let
+
+- No -
+
+Where
+  whatever@(foo, bar, baz) works.
+

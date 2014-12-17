@@ -1,0 +1,31 @@
+What's the opposite of subtract?  Plus and add don't work.
+
+If you use head it doesn't matter if the list is finite or infinite.  Functions that work for both kinds of lists.
+
+--currying 
+hotCurry fst 1 2
+--partial application 
+let a = hotCurry max 1 2
+a (1,3)
+
+Left ones work on infinite lists but right ones don't?
+
+Sounds like bollocks:
+"To put it plainly, if you take an infinite list at some point and you fold it up from the right, you'll eventually reach the beginning of the list. However, if you take an infinite list at a point and you try to fold it up from the left, you'll never reach an end!"
+
+Gives a good source of how it works.
+foldr f acc (x:xs) = f x (foldr f acc xs)
+foldl f acc (x:xs) =  foldl f (f acc x) xs
+http://en.wikibooks.org/wiki/Haskell/List_processing
+
+foldl over foldr
+The problem is that (+) is strict in both of its arguments. This means that both arguments must be fully evaluated before (+) can return a result.
+
+"We somehow have to tell the system that the inner redex should be reduced before the outer. Fortunately this is possible with the seq function:
+
+seq :: a -> b -> b
+seq is a primitive system function that when applied to x and y will first reduce x then return y. The idea is that y references x so that when y is reduced x will not be a big unreduced chain anymore."
+http://www.haskell.org/haskellwiki/Foldr_Foldl_Foldl'
+
+Flatmap is natural.
+http://blog.tmorris.net/youd-naturally-write-flatmap-yourself-if-asked-the-question/
