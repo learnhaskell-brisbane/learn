@@ -13,7 +13,7 @@ The book: http://learnyouahaskell.com/
 | 5 | 2017-06-29 | [5 Recursion](http://learnyouahaskell.com/recursion) | Beginner | |
 | 6 | 2017-07-06 | [6 Higher Order Functions](http://learnyouahaskell.com/higher-order-functions) | Beginner | Willie |
 | 7 | 2017-07-13 | [7 Modules](http://learnyouahaskell.com/modules) | Beginner | |
-| 8 | 2017-07-20 | [8 Making Our Own Types and Typeclasses](http://learnyouahaskell.com/making-our-own-types-and-typeclasses) | Intermediate | |
+| 8 | 2017-07-20 | [8 Making Our Own Types and Typeclasses](http://learnyouahaskell.com/making-our-own-types-and-typeclasses) | Intermediate | Ian |
 | 9 | 2017-07-27 | [9 Input and Output (1st half)](http://learnyouahaskell.com/input-and-output) | Intermediate | |
 | 10 | 2017-08-03 | [9 Input and Output (2nd half)](http://learnyouahaskell.com/input-and-output) | Intermediate | |
 | 11 | 2017-08-10 | [10 Functionally Solving Problems](http://learnyouahaskell.com/functionally-solving-problems) | Intermediate | |
