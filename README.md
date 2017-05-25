@@ -22,3 +22,10 @@ The book: http://learnyouahaskell.com/
 | 14 | 2017-08-31 | [12 A Fistful of Monads](http://learnyouahaskell.com/a-fistful-of-monads) | Advanced | Willie |
 | 15 | 2017-09-07 | [13 For a Few Monads More](http://learnyouahaskell.com/for-a-few-monads-more) | Advanced | |
 | 16 | 2017-09-14 | [14 Zippers](http://learnyouahaskell.com/zippers) | Advanced | |
+
+
+## Wiki
+
+Here's a wiki to reference from the previous groups session which includes some details on the study group format.
+
+[learnhaskell-brisbane Wiki](https://github.com/learnhaskell-brisbane/learn/wiki)
