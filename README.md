@@ -12,7 +12,7 @@ The book: http://learnyouahaskell.com/
 | 4 | 2017-06-22 | 4 Syntax in Functions | Beginner | |
 | 5 | 2017-06-29 | 5 Recursion | Beginner | |
 | 6 | 2017-07-06 | 6 Higher Order Functions | Beginner | |
-| 7 | 2017-07-13 | 7 Modules Beginner | |
+| 7 | 2017-07-13 | 7 Modules | Beginner | |
 | 8 | 2017-07-20 | 8 Making Our Own Types and Typeclasses | Intermediate | |
 | 9 | 2017-07-27 | 9 Input and Output (1st half) | Intermediate | |
 | 10 | 2017-08-03 | 9 Input and Output (2nd half) | Intermediate | |
